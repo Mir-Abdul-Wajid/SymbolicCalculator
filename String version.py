@@ -92,8 +92,12 @@ class Monomial():
                     mon = mon + i
             t = isMon(mon)
                 
-
-        self.mon = standardise(mon)
+        mon1=standardise(mon)
+        if idemp==0:
+            self.mon = mon1
+        elif idemp==1:
+            imon1 = idempotent(mon1)
+            self.mon = imon1
         
         
 
@@ -128,7 +132,7 @@ class Monomial():
         if asso == 1:
             if comm==1:
                 p = self.mon + other.mon
-                prod = Monomial(p)                
+                prod = Monomial(p)
                 return prod
             elif comm==0:
                 p = self.mon + other.mon
@@ -456,7 +460,7 @@ class AlgebraElement():
             sother = other.mon
             other = AlgebraElement(sother)
             return self*other
-        elif isinstance(self, numbers,Monomial):
+        elif isinstance(self, Monomial):
             sself = str(self)
             self=AlgebraElement(self)
             return self*other
@@ -778,6 +782,9 @@ def reorder(self, other):
     leto=0
     rself= ""
     rother= ""
+    
+    if comm==0:
+        return self + other
         
     for i in self:
         if i in letters:
@@ -843,3 +850,95 @@ def sort(self):
     for i in h.keys():
         e[i]=h[i]
     return e
+
+
+def idempotent(self):
+    """To apply idempotent property to monomials"""
+    
+    mon=""
+    leftpar=0
+    rightpar=0
+    let=0
+    
+    if idemp==0:
+        return self
+    
+    
+    for i in self:
+        if (i in letters or i == "(" or i==")" ):
+            mon = mon + i
+        else:
+            pass
+        
+    if asso==1:
+        i=0
+        while i < len(mon)-1 :
+            if mon[i] == mon[i+1]:
+                if i==0:
+                    mon = mon[1:]
+                else:
+                    mon = mon[0:i] + mon[i+1:]
+            else:
+                i=i+1
+        return mon
+    
+    elif asso==0:
+        red=""
+        for i in mon:
+            if i in letters:
+                let=let+1
+                red=red+i
+        if let==1:
+            return mon
+        if let ==0:
+            return mon
+        if let==2:
+            if "(" in mon:
+                imon=mon[1:len(mon)-1]
+                if imon[0]==imon[1]:
+                    return imon[0]
+                else:
+                    return mon
+            else:
+                if mon[0]==mon[1]:
+                    return mon[0]
+                else:
+                    return mon
+
+        for i in range(0, len(mon)+1):
+            if i==0:
+                if self[i]=="(":
+                    leftpar=leftpar+1
+                else :
+                    str1=mon[0:i+1]
+                    str3=idempotent(str1)
+                    str2=mon[i+1:len(mon)]
+                    str4=idempotent(str2)
+                    str5=reorder(str3,str4)
+                    imon=idempotent(str5)
+                    return imon    
+            elif leftpar==rightpar:
+                if i==len(mon):
+                    str1=mon[1:i-1]
+                    str2=idempotent(str1)
+                    if len(str2)==1:
+                        imon=str2
+                    else:
+                        imon="("+str2+")"
+                    return imon
+                else:
+                    str1=mon[0:i]
+                    str3=idempotent(str1)
+                    str2=mon[i:len(mon)]
+                    str4=idempotent(str2)
+                    str5=reorder(str3,str4)
+                    imon=idempotent(str5)
+                    return imon
+            elif self[i]=="(":
+                leftpar=leftpar+1
+            elif self[i]==")":
+                rightpar=rightpar+1
+            else:
+                pass
+ 
+ 
