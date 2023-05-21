@@ -70,17 +70,30 @@ class Monomial():
         p = isinstance(m,str)
 
         if p is True:
-            t = isMon(m)
+            mon=""
+            for i in m:
+                if i == " ":
+                    pass
+                else:
+                    mon = mon + i
+                
+            t = isMon(mon)
         else:
             t=False
 
         while t is False:
             print("{input} is not a valid monomial, please enter a valid monomial:".format(input=m))
             m = input("Eneter the monomial")
-            t = isMon(m)
+            mon=""
+            for i in m:
+                if i == " ":
+                    pass
+                else:
+                    mon = mon + i
+            t = isMon(mon)
                 
 
-        self.mon = standardise(m)
+        self.mon = standardise(mon)
         
         
 
