@@ -357,8 +357,13 @@ class Monomial():
 # Algebra Element Class
 class AlgebraElement():
 
-    def __init__(self, element):
+    def __init__(self, element, algebra):
         """ Initialisation for an algebra element"""
+        
+        q = isinstance(algebra, Algebra)
+        if q is True:
+            self.algebra = algebra
+        
 
         p = isinstance(element, str)
         while p is False:
@@ -525,7 +530,87 @@ class AlgebraElement():
 
         return s
         
+###################################################################
 
+##  ALGEBRA CLASS
+
+###################################################################
+
+class Algebra():
+    'Represents an algebra'
+    
+    def __init__(self, asso=0, comm=1, idemp=0):
+        '''Initialisation of an algebra.
+        Default: Non-associative but commutative and not idempotent'''
+        
+        p = isinstance(asso, int)
+        
+        if p is true:
+            if asso==0 or asso==1:
+                t = True
+            else:
+                t= False
+        else:
+            t = False
+            
+        while t is False:
+            print("{input} is not a valid number, please enter 1 if associative or 0 if non-associative only: ".format(input=asso))
+            asso = input('Please enter 0 or 1:')
+            p = isinstance(asso, int)
+        
+            if p is true:
+                if asso==0 or asso==1:
+                    t = True
+                else:
+                    t= False
+                    
+        self.asso = asso 
+        
+        q = isinstance(comm, int)
+        
+        if q is true:
+            if comm==0 or comm==1:
+                u = True
+            else:
+                u= False
+        else:
+            u = False
+            
+        while u is False:
+            print("{input} is not a valid number, please enter 1 if commutative or 0 if non-commutatitve only: ".format(input=comm))
+            comm = input('Please enter 0 or 1:')
+            q = isinstance(comm, int)
+        
+            if q is true:
+                if comm==0 or comm==1:
+                    u = True
+                else:
+                    u= False
+                    
+        self.comm = comm
+        
+        r = isinstance(idemp, int)
+        
+        if r is true:
+            if idemp==0 or idemp==1:
+                v = True
+            else:
+                v= False
+        else:
+            v = False
+            
+        while v is False:
+            print("{input} is not a valid number, please enter 1 if idempotent or 0 if non-idempotent only: ".format(input=idemp))
+            idemp = input('Please enter 0 or 1:')
+            r = isinstance(idemp, int)
+        
+            if r is true:
+                if idemp==0 or idemp==1:
+                    v = True
+                else:
+                    v= False
+                    
+        self.idemp = idemp 
     
 
 #################################################################
