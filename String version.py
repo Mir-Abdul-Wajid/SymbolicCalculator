@@ -935,7 +935,10 @@ def idempotent(self):
                     str2=mon[i:len(mon)]
                     str4=idempotent(str2)
                     str5=reorder(str3,str4)
-                    imon=idempotent(str5)
+                    if str5 == mon:
+                        imon=str5
+                    else:
+                        imon=idempotent(str5)
                     return imon
             elif self[i]=="(":
                 leftpar=leftpar+1
