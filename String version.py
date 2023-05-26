@@ -915,7 +915,10 @@ def idempotent(self):
                     str2=mon[i+1:len(mon)]
                     str4=idempotent(str2)
                     str5=reorder(str3,str4)
-                    imon=idempotent(str5)
+                    if str5 == mon:
+                        imon=str5
+                    else:
+                        imon=idempotent(str5)
                     return imon    
             elif leftpar==rightpar:
                 if i==len(mon):
