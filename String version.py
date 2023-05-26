@@ -694,9 +694,9 @@ def standardise(self):
                     red=red+i
             if let==1:
                 return self
-            if let ==0:
+            elif let ==0:
                 return self
-            if let==2:
+            elif let==2:
                 if "(" in self:
                     mon=self[1:len(self)-1]
                     i=0
@@ -734,37 +734,38 @@ def standardise(self):
                     mon="".join(monlist)
                     return mon
 
-            for i in range(0, ln+1):
-                if i==0:
-                    if self[i]=="(":
-                        leftpar=leftpar+1
-                    else :
-                        str1=self[0:i+1]
-                        str3=standardise(str1)
-                        str2=self[i+1:ln]
-                        str4=standardise(str2)
-                        mon=reorder(str3,str4)
-                        return mon
+            else:
+                for i in range(0, ln+1):
+                    if i==0:
+                        if self[i]=="(":
+                            leftpar=leftpar+1
+                        else :
+                            str1=self[0:i+1]
+                            str3=standardise(str1)
+                            str2=self[i+1:ln]
+                            str4=standardise(str2)
+                            mon=reorder(str3,str4)
+                            return mon
     
-                elif leftpar==rightpar:
-                    if i==ln:
-                        str1=self[1:i-1]
-                        str2=standardise(str1)
-                        str3="("+str2+")"
-                        return str3
+                    elif leftpar==rightpar:
+                        if i==ln:
+                            str1=self[1:i-1]
+                            str2=standardise(str1)
+                            str3="("+str2+")"
+                            return str3
+                        else:
+                            str1=self[0:i]
+                            str3=standardise(str1)
+                            str2=self[i:ln]
+                            str4=standardise(str2)
+                            mon=reorder(str3,str4)
+                            return mon
+                    elif self[i]=="(":
+                        leftpar=leftpar+1
+                    elif self[i]==")":
+                        rightpar=rightpar+1
                     else:
-                        str1=self[0:i]
-                        str3=standardise(str1)
-                        str2=self[i:ln]
-                        str4=standardise(str2)
-                        mon=reorder(str3,str4)
-                        return mon
-                elif self[i]=="(":
-                    leftpar=leftpar+1
-                elif self[i]==")":
-                    rightpar=rightpar+1
-                else:
-                    pass
+                        pass
  
         #return self
     
