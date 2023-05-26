@@ -741,13 +741,13 @@ def standardise(self):
                             leftpar=leftpar+1
                         else :
                             x=2
-                                close=0
-                                while close==0:
-                                    if self[i+x]=="}":
-                                        close=close+1
-                                        x=x+1
-                                    else:
-                                        x=x+1
+                            close=0
+                            while close==0:
+                                if self[i+x]=="}":
+                                    close=close+1
+                                    x=x+1
+                                else:
+                                    x=x+1
                             str1=self[0:i+x]
                             str3=standardise(str1)
                             str2=self[i+x:ln]
