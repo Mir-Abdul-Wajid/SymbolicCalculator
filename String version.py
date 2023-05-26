@@ -740,9 +740,17 @@ def standardise(self):
                         if self[i]=="(":
                             leftpar=leftpar+1
                         else :
-                            str1=self[0:i+1]
+                            x=2
+                                close=0
+                                while close==0:
+                                    if self[i+x]=="}":
+                                        close=close+1
+                                        x=x+1
+                                    else:
+                                        x=x+1
+                            str1=self[0:i+x]
                             str3=standardise(str1)
-                            str2=self[i+1:ln]
+                            str2=self[i+x:ln]
                             str4=standardise(str2)
                             mon=reorder(str3,str4)
                             return mon
