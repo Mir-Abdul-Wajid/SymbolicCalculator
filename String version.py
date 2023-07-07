@@ -64,8 +64,14 @@ class Monomial():
     'Represents the class of monomials'
 
 
-    def __init__(self, m):
+    def __init__(self, m, algebra = Default_Algebra):
         """ Initialisation method for monomial class"""
+        
+        q = isinstance(algebra, Algebra)
+        if q is True:
+            self.algebra = algebra
+        
+
 
         p = isinstance(m,str)
 
@@ -355,10 +361,15 @@ class Monomial():
 #############################################################
 
 # Algebra Element Class
+
 class AlgebraElement():
 
-    def __init__(self, element):
+    def __init__(self, element, algebra= Default_Algebra):
         """ Initialisation for an algebra element"""
+        
+        q = isinstance(algebra, Algebra)
+        if q is True:
+            self.algebra = algebra
 
         p = isinstance(element, str)
         while p is False:
@@ -421,7 +432,7 @@ class AlgebraElement():
 
                     
                     
-                    mon = Monomial(termbreak[1])
+                    mon = Monomial(termbreak[1], self.algebra )
 
                     if mon in self.element.keys():
                         self.element[mon] = self.element[mon] + coeff
